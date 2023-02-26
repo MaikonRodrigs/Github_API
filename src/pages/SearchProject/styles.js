@@ -21,7 +21,7 @@ export const InputSearch = styled.input`
   margin-bottom: 2px;
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   padding: 10px 20px;
   border: 1px solid #ffff;
   border-radius: 18px;

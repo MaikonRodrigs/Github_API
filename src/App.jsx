@@ -1,4 +1,4 @@
-// import SearchProject from './pages/SearchProject'
+import SearchProject from './pages/SearchProject'
 import ListProjectsGit from './pages/ListProjectsGit'
 import GlobalStyle from './styles/GlobalStyles';
 import Footer from './components/Footer'
@@ -6,8 +6,8 @@ import Footer from './components/Footer'
 function App() {
   return (
     <>
-    {/* <SearchProject /> */}
-    <ListProjectsGit />
+    <SearchProject />
+    {/* <ListProjectsGit /> */}
     <Footer />
     <GlobalStyle  />
     </>

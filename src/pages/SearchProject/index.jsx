@@ -1,43 +1,44 @@
 import React, { useState } from 'react';
-
+import useFetch from '../../hooks/useFetch';
 import * as S from './styles';
+import * as F from './function'
 
 const SearchProject = () => {
-  const [valueInput, setValueInput] = useState('')
+  const [valueInput, setValueInput] = useState('');
 
-  function handleInputChange(e) {
-    setValueInput(e.target.value);
+  const { request, data, error, loading } = useFetch()
+
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetchData()
   }
 
-  function clearSearch() {
-    setValueInput('');
-  }
-
-  const fieldError = () => {
-    if (valueInput.length > 2) {
-      return true;
-    } 
-      return false
+  async function fetchData() {
+    const { response, json } = await request(`https://api.github.com/users/${valueInput}`);
   }
 
   return (
     <>
       <S.Container>
-        <S.Form>
+        <S.Form onSubmit={handleSubmit}>
           <S.SearchIcon />
           <S.InputSearch
-            type="text"
+            type="text" e
             autoComplete="off"
+            spellcheck="false"
             placeholder="Please, insert your user github"
             value={valueInput}
-            onChange={handleInputChange}
+            onChange={(e) => F.handleInputChange(e, setValueInput)}
           />
-          {valueInput.length > 0 && <S.ResetSearch onClick={clearSearch} />}
+          {valueInput.length > 0 && <S.ResetSearch onClick={() => F.clearSearch(setValueInput)} />}
+          {/* {valueInput.length > 0 && <button onClick={(e) => fetchData(e, valueInput)}>Enviar</button>} */}
           {/* <S.ValidUserName>
-          <S.NotUserIcon />
-            Is not user
-          </S.ValidUserName> */}
+          <S.NotUserIcon />setValueInputsetValueInput
+          Is not user
+        </S.ValidUserName> */}
         </S.Form>
+        <img src={data?.avatar_url} alt="" style={{ borderRadius: '100%' }} />
       </S.Container>
     </>
   )
