@@ -5,7 +5,7 @@ import useFetch from '../../hooks/useFetch';
 const ListProjectsGit = () => {
 
   const [repo, setRepo] = useState('');
-  const [user, setUser] = useState('Maiko');
+  const [user, setUser] = useState('MaikonRodrigs');
 
   function FetchListRepo() {
     fetch(`https://api.github.com/users/${user}/repos`)
@@ -37,19 +37,16 @@ const ListProjectsGit = () => {
         {loading && <p>Loading</p>}
         {error && <p>Error</p>}
         <S.Row>
-
           <S.Card>
             <S.ProfileImg src={data.avatar_url} />
             <S.Name>{data.name}</S.Name>
             <S.Description>{data.bio}</S.Description>
-
             <S.LikeRow>
               <S.IconGitLike />
               {data.followers}
               <S.IconGitRepo />
               {data.public_repos}
             </S.LikeRow>
-
             <S.TextRepo />
             <S.SectionRepos>
               {repo && (
@@ -63,13 +60,11 @@ const ListProjectsGit = () => {
               )}
             </S.SectionRepos>
           </S.Card>
-          {/* <button onClick={FetchListRepo}>CLIQUE</button> */}
           <S.SectionIcons>
             <S.IconGitHub />
             <S.GitUrl src={data.html_url} target="_blank">
               {data.html_url}
             </S.GitUrl>
-
           </S.SectionIcons>
         </S.Row>
       </S.Container >

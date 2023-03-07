@@ -9,9 +9,10 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-`;
+  `;
 
 export const Row = styled.p`
+  background: var(--secondary);
   width: 320px;
   height: auto;
 
@@ -68,7 +69,6 @@ export const LikeRow = styled.div`
   display: flex;
   flex: 1;
   width: 100%;
-  /* justify-content: space-between; */
   margin: 20px 0 0;
 `;
 
@@ -101,7 +101,6 @@ export const SectionIcons = styled.div`
 
 export const IconGitHub = styled(Github)`
   width: 25px;
-  /* margin: 0 10px 0; */
 `;
 
 export const IconGitLike = styled(Heart)`
@@ -147,6 +146,6 @@ export const ErrorScreen = styled.div`
   flex: 1;
   align-items: center;
   align-content: center;
-  justify-content: center;
+  justify-content: center
   height: 100vh;
 `;

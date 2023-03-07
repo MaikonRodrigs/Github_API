@@ -24,7 +24,7 @@ export default createGlobalStyle`
     }
     
     html {
-        background: var(--gray);
+        background: var(--secondary);
         color: var(--white);
     }
 
@@ -34,6 +34,7 @@ export default createGlobalStyle`
     --white: #D9D9D9;
     --gray: #7A7A7A;
     --gray-light: #f2f2f2;
+    --violet: blueviolet;
 
     --shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
     }

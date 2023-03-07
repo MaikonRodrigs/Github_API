@@ -28,8 +28,9 @@ export const GitAvatar = styled.img`
   }
 `;
 export const GitUser = styled.span`
+    display: contents;
   a {
-    color: #000;
+    color: var(--white);
     text-decoration: none;
     font-size: 1.2rem;
     &:hover {

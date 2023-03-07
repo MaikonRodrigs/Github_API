@@ -30,9 +30,10 @@ const SearchProject = () => {
   return (
     <>
       <S.Container>
-        {loading && (<p>Loading..</p>)}
         <S.Form onSubmit={handleSubmit} >
-          <S.SearchIcon />
+          <S.RowGitHub>
+            <S.IconGitHub />
+          </S.RowGitHub>
           <S.InputSearch
             type="text"
             required
@@ -43,6 +44,10 @@ const SearchProject = () => {
             value={valueInput}
             onChange={(e) => handleInputChange(e, setValueInput)}
           />
+          <S.ButtonSend>
+            <S.SearchIcon />
+          </S.ButtonSend>
+          {loading && (<p>Loading..</p>)}
           {valueInput.length > 0 && <S.ResetSearch onClick={() => clearSearch()} />}
           {/* {valueInput.length > 0 && <button onClick={(e) => fetchData(e, valueInput)}>Enviar</button>} */}
           {/* <S.ValidUserName>

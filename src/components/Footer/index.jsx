@@ -19,10 +19,10 @@ const Footer = () => {
     <Container>
       <GitAvatar src={user?.avatar_url} />
       <GitUser>
-         {/* <strong>powered by</strong>: {user?.name} <br /> */}
         <a href={user?.html_url} target="_blank" rel="noreferrer">
         {user?.html_url}
         </a>
+        <p>I'am FrontEnd JavaScript, and React ❤️</p>
       </GitUser>
     </Container>
   )

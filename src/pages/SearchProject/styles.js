@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { Search } from "@styled-icons/evil/Search";
 import { CloseCircle } from "@styled-icons/ionicons-solid/CloseCircle";
 import { DoNotDisturb } from "@styled-icons/material-outlined/DoNotDisturb";
+import { Github } from "@styled-icons/boxicons-logos/Github";
+
 
 export const Container = styled.div`
   display: flex;
@@ -10,7 +12,7 @@ export const Container = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  background-color: var(--secondary);
 `;
 
 export const InputSearch = styled.input`
@@ -22,11 +24,13 @@ export const InputSearch = styled.input`
 `;
 
 export const Form = styled.form`
-  padding: 10px 20px;
+  background-color: var(--gray);
+  padding: 10px 13px;
   border: 1px solid #ffff;
   border-radius: 18px;
   width: 40%;
   height: 50px;
+  color: red;
 
   display: flex;
   justify-content: space-between;
@@ -39,8 +43,8 @@ export const Form = styled.form`
 `;
 export const SearchIcon = styled(Search)`
   fill: black;
-  width: 35px;
-  height: 35px;
+  width: 25px;
+  height: 25px;
 `;
 
 export const ResetSearch = styled(CloseCircle)`
@@ -71,3 +75,27 @@ export const NotUserIcon = styled(DoNotDisturb)`
   color: red;
   margin-right: 5px;
 `;
+
+export const IconGitHub = styled(Github)`
+  width: 25px;
+  color: #fff;
+`;
+
+export const RowGitHub = styled.div`
+  cursor: pointer;
+  background-color: black;
+  width: 60px;
+  height: 50px;
+  margin-left: -50px;
+  border-radius: 18px 0 0 18px;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  -webkit-box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
+  box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
+`;
+
+export const ButtonSend = styled.div`
+  cursor: pointer;
+`; 
