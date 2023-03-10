@@ -4,15 +4,15 @@ import { Heart } from "@styled-icons/boxicons-solid/Heart";
 import { GitRepository } from "@styled-icons/remix-line/GitRepository";
 
 export const Container = styled.div`
-  display: flex;
+  /* display: flex;
   flex: 1;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  `;
+  height: 100vh; */
+`;
 
 export const Row = styled.p`
-  background: var(--secondary);
+  background: #76b0dc;
   width: 320px;
   height: auto;
 
@@ -47,19 +47,20 @@ export const ProfileImg = styled.img`
 
 export const Name = styled.h1`
   font-size: 24px;
-  color: #fff;
+  color: var(--black);
   padding: 20px 0 5px;
 `;
 
 export const Description = styled.span`
   display: inline-block;
   font-size: 14px;
-  color: black;
+  color: var(--black);
   padding: 0;
 `;
 
 export const GitUrl = styled.a`
   cursor: pointer;
+  color: var(--black);
   font-size: 14px;
   font-weight: bold;
   margin: 10px 5px;
@@ -70,17 +71,19 @@ export const LikeRow = styled.div`
   flex: 1;
   width: 100%;
   margin: 20px 0 0;
+  color: var(--black);
 `;
 
 export const IconGitRepo = styled(GitRepository)`
   width: 17px;
   margin: 1px 2px 0 10px;
-  color: #3c3c3c;
+  color: var(--black);
 `;
 
 export const TextRepo = styled.span`
   font-size: 12px;
   margin: 13px 0 0;
+  color: var(--black);
   &::before {
     content: "Publick Repositorys:";
   }
@@ -101,6 +104,7 @@ export const SectionIcons = styled.div`
 
 export const IconGitHub = styled(Github)`
   width: 25px;
+  color: var(--black);
 `;
 
 export const IconGitLike = styled(Heart)`
@@ -117,13 +121,14 @@ export const SectionRepos = styled.div`
   padding: 10px 0;
 
   p {
-    border: 1px solid #fff;
+    border: 1px solid var(--black);
+    color: var(--black);
     border-radius: 12px;
     padding: 2px 15px;
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 0.4px;
-    cursor: pointer;
+    cursor: progress;;
 
     /* white-space: nowrap;
     width: 138px;
@@ -135,8 +140,8 @@ export const SectionRepos = styled.div`
     }
 
     &:hover {
-      background-color: white;
-      color: black;
+      background-color: var(--black);
+      color: var(--white);
     }
   }
 `;
@@ -146,6 +151,6 @@ export const ErrorScreen = styled.div`
   flex: 1;
   align-items: center;
   align-content: center;
-  justify-content: center
+  justify-content: center;
   height: 100vh;
 `;

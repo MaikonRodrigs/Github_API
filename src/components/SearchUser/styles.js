@@ -6,13 +6,13 @@ import { Github } from "@styled-icons/boxicons-logos/Github";
 
 
 export const Container = styled.div`
-  display: flex;
-  flex: 1;
+  /* display: flex;
   height: 100vh;
   width: 100%;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
-  background-color: var(--secondary);
+  background-color: var(--secondary); */
 `;
 
 export const InputSearch = styled.input`
@@ -28,7 +28,7 @@ export const Form = styled.form`
   padding: 10px 13px;
   border: 1px solid #ffff;
   border-radius: 18px;
-  width: 40%;
+  width: 100%;
   height: 50px;
   color: red;
 
@@ -64,7 +64,7 @@ export const ValidUserName = styled.p`
   text-align: left;
   margin-left: -10px;
 
-  position: absolute;
+  /* position: absolute; */
   top: 55px;
   left: 30px;
 `;
