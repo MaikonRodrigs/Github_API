@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Github } from "@styled-icons/boxicons-logos/Github";
 import { Heart } from "@styled-icons/boxicons-solid/Heart";
 import { GitRepository } from "@styled-icons/remix-line/GitRepository";
+import { CloseCircle } from "@styled-icons/ionicons-outline/CloseCircle";
 
 export const Container = styled.div`
   /* display: flex;
@@ -15,6 +16,8 @@ export const Row = styled.p`
   background: #76b0dc;
   width: 320px;
   height: auto;
+
+  display: ${({ isNan }) => isNan ? 'block' : 'none'};
 
   min-height: 500px;
   padding: 30px 20px 90px;
@@ -153,4 +156,41 @@ export const ErrorScreen = styled.div`
   align-content: center;
   justify-content: center;
   height: 100vh;
+`;
+
+export const RemoveItem = styled.div`
+  width: 100%;
+  height: 30px;
+  background-color: var(--white);
+  position: absolute;
+  bottom: 0px;
+  border-radius: 0 0 8px 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    /* background-color: red; */
+  }
+`;
+
+export const IconClose= styled(CloseCircle)`
+  position: absolute;
+  top: 15px;
+  right: 12px;
+  width: 20px;
+  cursor: pointer;
+  color: var(--black);
+  &:hover {
+    color: red;
+  }
+`
+
+export const QRCode = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 2rem;
 `;

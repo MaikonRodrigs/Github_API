@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { GlobalContext } from '../../hooks/useContext';
 
-import useFetch from '../../hooks/useFetch';
 import * as S from './styles';
 
 const SearchUser = ({
@@ -11,10 +10,11 @@ const SearchUser = ({
   const [valueInput, setValueInput] = useState();
   const { userGit, setUserGit } = useContext(GlobalContext);
 
+
+
   function clearSearch() {
     const inputSearch = document.getElementById('search')
     inputSearch.value = ''
-    setValueInput('');
   }
 
   function handleInputChange(e) {
@@ -35,13 +35,14 @@ const SearchUser = ({
             autoComplete="off"
             spellcheck="false"
             placeholder="Please, insert your user github"
-            value={valueInput}
+            value={userGit}
             onChange={handleInputChange}
           />
           <S.ButtonSend onClick={onSubmitSend}>
             <S.SearchIcon />
           </S.ButtonSend>
-          {valueInput?.length > 0 && <S.ResetSearch onClick={() => clearSearch()} />}
+          {userGit && (<S.ResetSearch onClick={clearSearch} />) }
+          
         </S.Form>
       </S.Container>
     </>

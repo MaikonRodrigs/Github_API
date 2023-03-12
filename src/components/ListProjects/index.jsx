@@ -1,5 +1,5 @@
-import React from 'react';
-import { GlobalContext } from '../../hooks/useContext';
+import React, { useState } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
 
 import * as S from './styles';
 
@@ -11,14 +11,38 @@ const ListProjects = ({
   public_repos,
   html_url,
   repository,
-  LoadingRepositories
+  isLoading,
+  isEmpty,
+  clearCache,
+  closeButton = true,
+  isNan,
+  QRCodeUser
 }) => {
+
+  if (isLoading) {
+    <h1>Carregando...</h1>
+  }
+
+  if (isEmpty) {
+    return <p>Esta vazio</p>
+  }
 
   return (
     <S.Container>
-      <S.Row>
-        <S.Card>
-          <S.ProfileImg src={avatar} />
+      <S.Row isNan={isNan}>
+        <S.Card >
+          {closeButton && (
+            <S.IconClose onClick={clearCache} />
+          )}
+          <S.QRCode>
+            <S.ProfileImg src={avatar} />
+            <QRCodeSVG
+              value={`https://github.com/${QRCodeUser}`}
+              size={72}
+              includeMargin={true}
+              level="L"
+            />
+          </S.QRCode>
           <S.Name>{name}</S.Name>
           <S.Description>{bio}</S.Description>
           <S.LikeRow>
@@ -38,9 +62,6 @@ const ListProjects = ({
                 )
               }))
             )}
-            {/* {!repository && (
-                <p onClick={LoadingRepositories}>Recarregar os repositorios</p>
-            )} */}
           </S.SectionRepos>
         </S.Card>
         <S.SectionIcons>

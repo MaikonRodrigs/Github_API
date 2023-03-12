@@ -18,7 +18,7 @@ export const Container = styled.div`
 export const InputSearch = styled.input`
   color: #000;
   font-size: 1rem;
-  width: 100%;
+  width: 111%;
   margin-left: 10px;
   margin-bottom: 2px;
 `;
@@ -28,7 +28,7 @@ export const Form = styled.form`
   padding: 10px 13px;
   border: 1px solid #ffff;
   border-radius: 18px;
-  width: 100%;
+  width: 111%;
   height: 50px;
   color: red;
 

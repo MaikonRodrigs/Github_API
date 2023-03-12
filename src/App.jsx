@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<Homescreen />} />
           {/* <Route path="/userGitPage" element={<ListProjectsGit />} /> */}
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
       </UserGitStorage>
     </BrowserRouter>
 
