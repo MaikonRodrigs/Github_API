@@ -3,8 +3,11 @@ import useFetch from '../../hooks/useFetch';
 // import useLocalStorage from '../../hooks/useLocalStorage';
 import { GlobalContext } from '../../hooks/useContext';
 
+import { useAutoAnimate } from '@formkit/auto-animate/react'
+
 import SearchUser from '../../components/SearchUser';
 import ListProjects from '../../components/ListProjects';
+import CardCode from '../../components/CardCode';
 import Recents from '../../components/Recents';
 import * as S from './styles';
 
@@ -20,8 +23,10 @@ const Homescreen = () => {
   const localItemRepo = localStorage.getItem('__repos')
   const getItem = (JSON.parse(localItemUser))
   const getRepo = (JSON.parse(localItemRepo))
+  const QRCODE = user?.login || getItem?.login
 
   const { request, data, error, loading } = useFetch()
+
 
   async function fetchData() {
 
@@ -112,48 +117,88 @@ const Homescreen = () => {
   }, [oldUsers, data])
 
 
+  const jsonFetch = `{
+    "login" : ${JSON.stringify(user.name || getItem?.name)},
+    "id": ${JSON.stringify(user.id || getItem?.id)},
+    "node_id": ${JSON.stringify(user.id || getItem?.node_id)},
+    "avatar_url": ${JSON.stringify(user.avatar_url || getItem?.avatar_url)},
+    "gravatar_id": ${JSON.stringify(user.gravatar_id || getItem?.gravatar_id)},
+    "url": ${JSON.stringify(user.url || getItem?.url)},
+    "html_url": ${JSON.stringify(user?.html_url || getItem?.html_url)},
+    "organizations_url": ${JSON.stringify(user?.organizations_url || getItem?.organizations_url)},
+    "repos_url": ${JSON.stringify(user?.repos_url || getItem?.repos_url)},
+    "type": ${JSON.stringify(user?.type || getItem?.type)},
+    "site_admin": ${JSON.stringify(user?.site_admin || getItem?.site_admin)},
+    "name": ${JSON.stringify(user?.name || getItem?.name)},
+    "company": ${JSON.stringify(user?.company || getItem?.company)},
+    "blog": ${JSON.stringify(user?.blog || getItem?.blog)},
+    "location": ${JSON.stringify(user?.location || getItem?.location)},
+    "email": ${JSON.stringify(user?.email || getItem?.email)},
+    "bio": ${JSON.stringify(user?.bio || getItem?.bio)},
+    "twitter_username": ${JSON.stringify(user?.twitter_username || getItem?.twitter_username)},
+    "public_repos": ${JSON.stringify(user?.public_repos || getItem?.public_repos)},
+    "public_gists": ${JSON.stringify(user?.public_gists || getItem?.public_gists)},
+    "followers": ${JSON.stringify(user?.followers || getItem?.followers)},
+    "following": ${JSON.stringify(user?.following || getItem?.following)},
+    "created_at": ${JSON.stringify(user?.created_at || getItem?.created_at)},
+    "updated_at": ${JSON.stringify(user?.updated_at || getItem?.updated_at)}"
+  }`;
+
+
   return (
     <>
       <S.Container>
         <SearchUser onSubmit={handleSubmit} onSubmitSend={handleSubmit} />
-        {/* {localItemUser && (
-          <p onClick={clearCache} >Limpar</p>
-        )} */}
         <S.RowGit >
           {isLoading}
           {(data) && (
-            <ListProjects
-              QRCodeUser={userGit}
-              isNan={isNan}
-              closeButton={false}
-              isLoading={loading}
-              git={userGit}
-              repository={repo}
-              key={user?.id}
-              avatar={(user)?.avatar_url}
-              name={(user)?.name}
-              bio={(user)?.bio}
-              follower={(user)?.followers}
-              public_repos={(user)?.followers}
-              html_url={(user)?.html_url}
-            />
+            <S.Card>
+              <ListProjects
+                QRCodeUser={userGit}
+                isNan={isNan}
+                closeButton={false}
+                isLoading={loading}
+                git={userGit}
+                repository={repo}
+                key={user?.id}
+                avatar={(user)?.avatar_url}
+                name={(user)?.name}
+                bio={(user)?.bio}
+                followers={(user)?.followers}
+                public_repos={(user)?.public_repos}
+                html_url={(user)?.html_url}
+              />
+              <CardCode
+                isNan={isNan}
+                QRCodeUser={QRCODE}
+                jsonFetch={jsonFetch}
+              />
+            </S.Card>
           )}
           {!data && getItem && (
-            <ListProjects
-              isNan={isNan}
-              closeButton
-              clearCache={clearCache}
-              isLoading={loading}
-              git={userGit}
-              repository={getRepo}
-              key={getItem?.id}
-              avatar={(getItem)?.avatar_url}
-              name={(getItem)?.name}
-              bio={(getItem)?.bio}
-              follower={(getItem)?.followers}
-              public_repos={(getItem)?.followers}
-              html_url={(getItem)?.html_url}
-            />
+            <S.Card>
+              <ListProjects
+                lastRequest={true}
+                isNan={isNan}
+                closeButton
+                clearCache={clearCache}
+                isLoading={loading}
+                git={userGit}
+                repository={getRepo}
+                key={getItem?.id}
+                avatar={(getItem)?.avatar_url}
+                name={(getItem)?.name}
+                bio={(getItem)?.bio}
+                followers={(getItem)?.followers}
+                public_repos={(getItem)?.public_repos}
+                html_url={(getItem)?.html_url}
+              />
+              <CardCode
+                QRCodeUser={QRCODE}
+                isNan={isNan}
+                jsonFetch={jsonFetch}
+              />
+            </S.Card>
           )}
         </S.RowGit>
       </S.Container>
@@ -161,6 +206,7 @@ const Homescreen = () => {
         {oldUsers.id != '' && (
           (oldUsers.map((item) => (
             <Recents
+
               clearState={() => clearState(item.id)}
               onClick={() => selectUseRecente(item.login)}
               isEmpty={isEmpty}

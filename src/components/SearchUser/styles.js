@@ -21,6 +21,9 @@ export const InputSearch = styled.input`
   width: 111%;
   margin-left: 10px;
   margin-bottom: 2px;
+  &::placeholder {
+    color: var(--black);
+  }
 `;
 
 export const Form = styled.form`

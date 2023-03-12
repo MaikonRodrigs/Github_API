@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { QRCodeSVG } from 'qrcode.react';
+
 
 import * as S from './styles';
 
@@ -16,7 +16,7 @@ const ListProjects = ({
   clearCache,
   closeButton = true,
   isNan,
-  QRCodeUser
+  lastRequest = false,
 }) => {
 
   if (isLoading) {
@@ -31,18 +31,13 @@ const ListProjects = ({
     <S.Container>
       <S.Row isNan={isNan}>
         <S.Card >
+        <S.LastRequest>
+          {lastRequest ? 'LocalStorage.getItem()' : ''}
           {closeButton && (
             <S.IconClose onClick={clearCache} />
           )}
-          <S.QRCode>
-            <S.ProfileImg src={avatar} />
-            <QRCodeSVG
-              value={`https://github.com/${QRCodeUser}`}
-              size={72}
-              includeMargin={true}
-              level="L"
-            />
-          </S.QRCode>
+        </S.LastRequest>
+          <S.ProfileImg src={avatar} />
           <S.Name>{name}</S.Name>
           <S.Description>{bio}</S.Description>
           <S.LikeRow>

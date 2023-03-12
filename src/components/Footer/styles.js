@@ -4,14 +4,12 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
   flex-direction: column;
   bottom: 2rem;
-  left: 0;
-  right: 0;
+  margin-top: 6rem;
   @media (max-width: 1024px) {
     /* display: none; */
-    position: relative;
+    /* position: relative; */
   }
 `;
 export const GitAvatar = styled.img`

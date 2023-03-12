@@ -5,6 +5,9 @@ import { GitRepository } from "@styled-icons/remix-line/GitRepository";
 import { CloseCircle } from "@styled-icons/ionicons-outline/CloseCircle";
 
 export const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
   /* display: flex;
   flex: 1;
   justify-content: center;
@@ -177,7 +180,7 @@ export const RemoveItem = styled.div`
 
 export const IconClose= styled(CloseCircle)`
   position: absolute;
-  top: 15px;
+  top: 22px;
   right: 12px;
   width: 20px;
   cursor: pointer;
@@ -185,12 +188,18 @@ export const IconClose= styled(CloseCircle)`
   &:hover {
     color: red;
   }
-`
+  `;
 
-export const QRCode = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  gap: 2rem;
+export const LastRequest = styled.div`
+  color: var(--black);
+  color: #61C554;
+  font-weight: bold;
+  letter-spacing: -.5px;
+  background-color: white;
+  padding: 4px 20px;
+  border-radius: 8px;
+  margin-top: -15px;
+  margin-bottom: 20px;
+
 `;
+
