@@ -1,48 +1,42 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
-import useFetch from '../../hooks/useFetch';
-// import useLocalStorage from '../../hooks/useLocalStorage';
-import { GlobalContext } from '../../hooks/useContext';
-
-import { useAutoAnimate } from '@formkit/auto-animate/react'
-
 import * as S from './styles';
+import { GlobalContext } from '../../hooks/useContext';
+import useFetch from '../../hooks/useFetch';
+
+import { Spinner } from '../../components/Spinner';
+import CardCode from '../../components/CardCode';
 import SearchUser from '../../components/SearchUser';
 import ListProjects from '../../components/ListProjects';
-import CardCode from '../../components/CardCode';
 import Recents from '../../components/Recents';
-import { Spinner } from '../../components/Spinner';
 
 const Homescreen = () => {
   const { userGit, setUserGit } = useContext(GlobalContext);
   const inputRef = useRef();
-
-  const [user, setUser] = useState('');
-  const [repo, setRepo] = useState('');
-  const [responseStatus, setResponseStatus] = useState('');
-  const [oldUsers, setOldUsers] = useState([]);
-  const [oldRepos, setOldRepos] = useState([]);
+  
+  const [user, setUser] = useState(null);
+  const [repo, setRepo] = useState(null);
+  const [responseStatus, setResponseStatus] = useState(null);
+  const [oldUsers, setOldUsers] = useState([null]);
+  const [oldRepos, setOldRepos] = useState([null]);
   const [isEmpty, setIsEmpty] = useState(true)
   const [isNan, setIsNan] = useState(true)
   const [isErrorUser, setIsErrorUser] = useState(false)
   const [errorName, setErrorName] = useState(null)
   const [loadingStatus, setLoadingStatus] = useState(false);
-
+  
   const localItemUser = localStorage.getItem('__user')
   const localItemRepo = localStorage.getItem('__repos')
   const getItem = (JSON.parse(localItemUser))
   const getRepo = (JSON.parse(localItemRepo))
-
   const QRCODE = user?.login || getItem?.login
 
-
-
-
-
-  const { request, data, error, setError, loading } = useFetch()
-
+  const URL_FETCH_GIT = 'https://api.github.com/users'
+  
+  const { request, data } = useFetch()
+  
   async function fetchData() {
     setLoadingStatus(true)
-    let { response, json } = await request(`https://api.github.com/users/${userGit}`);
+    let { response, json } = await request(`${URL_FETCH_GIT}/${userGit}`);
     if (response.status === 404) {
       setIsErrorUser(true)
     } else {
@@ -59,7 +53,7 @@ const Homescreen = () => {
   }
 
   async function fetchRepo() {
-    let { response, json } = await request(`https://api.github.com/users/${userGit}/repos`);
+    let { response, json } = await request(`${URL_FETCH_GIT}/${userGit}/repos`);
     if (response.status === 404) {
       json = undefined
     } else {
@@ -104,7 +98,6 @@ const Homescreen = () => {
     }, 1000)
   }
 
-
   function selectUseRecente(userName) {
     selectUser(userName.replace(/ /g, ''))
     selectRepo(userName.replace(/ /g, ''))
@@ -126,6 +119,7 @@ const Homescreen = () => {
   }
 
   useEffect(() => {
+
     if (data?.message === "Not Found") {
       setUserGit(inputRef.current.value)
       setIsNan(false)
@@ -152,12 +146,12 @@ const Homescreen = () => {
     "url": ${JSON.stringify(responseStatus.url)},
 },`)}
 {
-  "login" : ${JSON.stringify(user.name || getItem?.name)},
-  "id": ${JSON.stringify(user.id || getItem?.id)},
-  "node_id": ${JSON.stringify(user.id || getItem?.node_id)},
-  "avatar_url": ${JSON.stringify(user.avatar_url || getItem?.avatar_url)},
-  "gravatar_id": ${JSON.stringify(user.gravatar_id || getItem?.gravatar_id)},
-  "url": ${JSON.stringify(user.url || getItem?.url)},
+  "login" : ${JSON.stringify(user?.name || getItem?.name)},
+  "id": ${JSON.stringify(user?.id || getItem?.id)},
+  "node_id": ${JSON.stringify(user?.id || getItem?.node_id)},
+  "avatar_url": ${JSON.stringify(user?.avatar_url || getItem?.avatar_url)},
+  "gravatar_id": ${JSON.stringify(user?.gravatar_id || getItem?.gravatar_id)},
+  "url": ${JSON.stringify(user?.url || getItem?.url)},
   "html_url": ${JSON.stringify(user?.html_url || getItem?.html_url)},
   "organizations_url": ${JSON.stringify(user?.organizations_url || getItem?.organizations_url)},
   "repos_url": ${JSON.stringify(user?.repos_url || getItem?.repos_url)},
@@ -177,10 +171,6 @@ const Homescreen = () => {
   "created_at": ${JSON.stringify(user?.created_at || getItem?.created_at)},
   "updated_at": ${JSON.stringify(user?.updated_at || getItem?.updated_at)} "
 } `;
-
-  if (loadingStatus) {
-    <Spinner />
-  }
 
   return (
     <>
@@ -206,6 +196,7 @@ const Homescreen = () => {
                 key={user?.id}
                 avatar={(user)?.avatar_url}
                 name={(user)?.name}
+                since={(user)?.created_at}
                 bio={(user)?.bio}
                 followers={(user)?.followers}
                 public_repos={(user)?.public_repos}
@@ -250,6 +241,7 @@ const Homescreen = () => {
         {oldUsers.id != '' && (
           (oldUsers.map((item, idx) => (
             <Recents
+              key={idx}
               clearState={() => clearState(idx)}
               onClick={() => selectUseRecente(item.login)}
               isEmpty={isEmpty}

@@ -39,12 +39,15 @@ export const ProfileImg = styled.img`
   border: 1px solid var(--white);
   margin-bottom: 1rem;
 
+  box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
-  box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
 `;
 
 export const RemoveItem = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 30px;
   background-color: var(--white);
@@ -52,21 +55,13 @@ export const RemoveItem = styled.div`
   bottom: 0px;
   border-radius: 0 0 8px 8px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   cursor: pointer;
-
-  &:hover {
-    /* background-color: red; */
-  }
 `;
 
-export const IconClose= styled(CloseCircle)`
+export const IconClose = styled(CloseCircle)`
   width: 20px;
   color: var(--black);
   &:hover {
     color: red;
   }
-`
+`;

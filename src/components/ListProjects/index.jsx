@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import * as S from './styles';
+import UseDate from '../../hooks/useDate'
 import { LoadingIcon } from '../Spinner';
 
-
-import * as S from './styles';
 
 const ListProjects = ({
   avatar,
   name,
+  since,
   bio,
   followers,
   public_repos,
@@ -52,6 +53,7 @@ const ListProjects = ({
                 }))
               )}
             </S.SectionRepos>
+            <UseDate since={since} />
             <S.SectionIcons>
               <S.IconGitHub />
               <S.GitUrl src={html_url} target="_blank">

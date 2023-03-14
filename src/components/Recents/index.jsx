@@ -2,11 +2,8 @@ import React from 'react';
 
 import * as S from './styles';
 
-function Recents({ avatar_url, isEmpty, name, onClick, userName, clearState }) {
+function Recents({ avatar_url, name, onClick, userName, clearState }) {
 
-  if (isEmpty) {
-    return <p>Esta vazio</p>
-  }
   return (
     <S.Container>
       <S.Projects onClick={() => onClick(userName)}>
@@ -17,7 +14,6 @@ function Recents({ avatar_url, isEmpty, name, onClick, userName, clearState }) {
         <S.IconClose onClick={clearState} />
       </S.RemoveItem>
     </S.Container>
-
   )
 }
 

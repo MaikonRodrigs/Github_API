@@ -4,16 +4,7 @@ import { CloseCircle } from "@styled-icons/ionicons-solid/CloseCircle";
 import { DoNotDisturb } from "@styled-icons/material-outlined/DoNotDisturb";
 import { Github } from "@styled-icons/boxicons-logos/Github";
 
-
-export const Container = styled.div`
-  /* display: flex;
-  height: 100vh;
-  width: 100%;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  background-color: var(--secondary); */
-`;
+export const Container = styled.div``;
 
 export const InputSearch = styled.input`
   color: #000;
@@ -44,6 +35,7 @@ export const Form = styled.form`
     width: 80%;
   }
 `;
+
 export const SearchIcon = styled(Search)`
   fill: black;
   width: 25px;
@@ -54,29 +46,11 @@ export const ResetSearch = styled(CloseCircle)`
   width: 20px;
   height: 20px;
   color: black;
-  margin-left: 5px;
+  margin-right: 3px;
   cursor: pointer;
   &:hover {
     opacity: 0.7;
   }
-`;
-
-export const ValidUserName = styled.p`
-  font-size: 13px;
-  color: red;
-  text-align: left;
-  margin-left: -10px;
-
-  /* position: absolute; */
-  top: 55px;
-  left: 30px;
-`;
-
-export const NotUserIcon = styled(DoNotDisturb)`
-  width: 13px;
-  height: 13px;
-  color: red;
-  margin-right: 5px;
 `;
 
 export const IconGitHub = styled(Github)`
@@ -85,23 +59,25 @@ export const IconGitHub = styled(Github)`
 `;
 
 export const RowGitHub = styled.div`
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: black;
   width: 60px;
   height: 50px;
   margin-left: -50px;
+  
+  cursor: pointer;
+
   border-radius: 18px 0 0 18px;
-  display: flex;
-  justify-content: center; 
-  align-items: center;
+  box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
-  box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
 `;
 
 export const ButtonSend = styled.div`
   cursor: pointer;
-`; 
+`;
 
 export const ErrorUser = styled.div`
   display: flex;
@@ -111,4 +87,4 @@ export const ErrorUser = styled.div`
   color: var(--error);
   margin: 12px auto;
   text-transform: uppercase;
-`; 
+`;

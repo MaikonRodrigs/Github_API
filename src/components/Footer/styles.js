@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ReactLogo } from '@styled-icons/boxicons-logos/ReactLogo'
 
 export const Container = styled.div`
   display: flex;
@@ -35,4 +36,11 @@ export const GitUser = styled.span`
       color: var(--dark);
     }
   }
+`;
+
+export const ReactIcon = styled(ReactLogo)`
+  width: 40px;
+  height: 40px;
+  margin: 4px;
+  color: var(--white);
 `;

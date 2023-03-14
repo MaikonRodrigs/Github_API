@@ -37,13 +37,13 @@ const SearchUser = ({
             autoComplete="off"
             spellcheck="false"
             placeholder="Please, insert your user github"
-            value={userGit}
+            value={userGit || ''}
             onChange={handleInputChange}
           />
+          {userGit && (<S.ResetSearch onClick={clearSearch} />)}
           <S.ButtonSend onClick={onSubmitSend}>
             <S.SearchIcon />
           </S.ButtonSend>
-          {userGit && (<S.ResetSearch onClick={clearSearch} />)}
         </S.Form>
         {userNotFound && (
           <S.ErrorUser>

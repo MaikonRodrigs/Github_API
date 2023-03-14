@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { Container, GitAvatar, GitUser } from './styles';
+import * as S from './styles';
+
 import useFetch from '../../hooks/useFetch';
 
 const Footer = () => {
-  const { request, data, error, loading } = useFetch()
+  const { request } = useFetch()
   const nameUserGit = 'MaikonRodrigs'
-  let user = data
 
   const localItemUser = localStorage.getItem('__git')
   const getUser = (JSON.parse(localItemUser))
@@ -23,18 +23,18 @@ const Footer = () => {
     }
   }, [])
 
-
-
   return (
-    <Container>
-      <GitAvatar src={getUser?.avatar_url} />
-      <GitUser>
+    <S.Container>
+      <S.GitAvatar src={getUser?.avatar_url} />
+      <S.GitUser>
         <a href={getUser?.html_url} target="_blank" rel="noreferrer">
           {getUser?.html_url}
         </a>
         <p>I'am FrontEnd JavaScript, and React ❤️</p>
-      </GitUser>
-    </Container>
+      </S.GitUser>
+      <br />
+      powered by<S.ReactIcon />
+    </S.Container>
   )
 }
 

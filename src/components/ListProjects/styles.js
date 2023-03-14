@@ -8,29 +8,21 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 2rem;
-  /* display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; */
 `;
 
-export const Row = styled.p`
+export const Row = styled.div`
+  position: relative;
   background: #76b0dc;
   width: 320px;
   height: auto;
-
+  border-radius: 15px;
   display: ${({ isNan }) => isNan ? 'block' : 'none'};
-
   min-height: 500px;
   padding: 30px 20px 90px;
 
-  position: relative;
-
-  border-radius: 15px;
+  box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
-  box-shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
 `;
 
 export const Card = styled.div`
@@ -51,7 +43,7 @@ export const ProfileImg = styled.img`
   -webkit-box-shadow: var(--shadow);
 `;
 
-export const Name = styled.h1`
+export const Name = styled.span`
   font-size: 24px;
   color: var(--black);
   padding: 20px 0 5px;
@@ -136,11 +128,6 @@ export const SectionRepos = styled.div`
     letter-spacing: 0.4px;
     cursor: progress;;
 
-    /* white-space: nowrap;
-    width: 138px;
-    overflow: hidden;
-    text-overflow: ellipsis; */
-
     &:before {
       content: "#";
     }
@@ -172,10 +159,6 @@ export const RemoveItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  &:hover {
-    /* background-color: red; */
-  }
 `;
 
 export const IconClose= styled(CloseCircle)`
@@ -200,6 +183,5 @@ export const LastRequest = styled.div`
   border-radius: 8px;
   margin-top: -15px;
   margin-bottom: 20px;
-
 `;
 
