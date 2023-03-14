@@ -1,7 +1,7 @@
 👋 <br>Hi, I’m @MaikonRodrigs, hosted this project through Firebase, take a look: <br>
 https://gitsearch.web.app/ 
 
-This project [VITE] `@Javascript` <br>
+This project [CREATE_VITE @https://vitejs.dev/guide/] `@React` <br>
 First run `yarn` next `yarn run dev `, and **enjoy** 💥 <br>
 
 **REMEMBER:**
