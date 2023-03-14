@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
-export default createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   *{
     margin: 0;
     padding: 0;
@@ -10,7 +10,6 @@ export default createGlobalStyle`
     html, border-style, #root {
         max-height: 100vh;
         max-width: 100%;
-
         width: 100%;
         height: 100%;
     }
@@ -36,6 +35,7 @@ export default createGlobalStyle`
     --gray: #7A7A7A;
     --gray-light: #f2f2f2;
     --violet: blueviolet;
+    --error: #ED6A5E;
 
     --shadow: 14px 22px 49px -18px rgba(0, 0, 0, 0.75);
     }

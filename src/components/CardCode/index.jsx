@@ -1,14 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import * as S from './styles';
 import { QRCodeSVG } from 'qrcode.react';
+import { LoadingIcon, Spinner } from '../Spinner'
 import SyntaxHighlighter from "react-syntax-highlighter";
 import * as theme from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
+
 function CardCode({ QRCodeUser, jsonFetch, isNan }) {
   const [animationParent] = useAutoAnimate()
-  const ref = useRef()
+
   return (
     <S.Container isNan={isNan}>
       <S.Code>

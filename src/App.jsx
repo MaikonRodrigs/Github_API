@@ -1,9 +1,9 @@
 import Homescreen from './pages/Homescreen'
-import GlobalStyle from './styles/GlobalStyles'
+import { GlobalStyle } from './styles/GlobalStyles'
 import Footer from './components/Footer'
-import { UserGitStorage } from './hooks/useContext';
+import { UserGitStorage } from './hooks/useContext'
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 function App() {
   return (
@@ -16,8 +16,7 @@ function App() {
         </Routes>
         <Footer />
       </UserGitStorage>
-    </BrowserRouter>
-
+    </BrowserRouter >
   )
 }
 

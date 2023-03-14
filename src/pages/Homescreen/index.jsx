@@ -5,40 +5,57 @@ import { GlobalContext } from '../../hooks/useContext';
 
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
+import * as S from './styles';
 import SearchUser from '../../components/SearchUser';
 import ListProjects from '../../components/ListProjects';
 import CardCode from '../../components/CardCode';
 import Recents from '../../components/Recents';
-import * as S from './styles';
+import { Spinner } from '../../components/Spinner';
 
 const Homescreen = () => {
+  const { userGit, setUserGit } = useContext(GlobalContext);
+  const inputRef = useRef();
+
   const [user, setUser] = useState('');
   const [repo, setRepo] = useState('');
+  const [responseStatus, setResponseStatus] = useState('');
   const [oldUsers, setOldUsers] = useState([]);
   const [oldRepos, setOldRepos] = useState([]);
   const [isEmpty, setIsEmpty] = useState(true)
   const [isNan, setIsNan] = useState(true)
-  const { userGit, setUserGit } = useContext(GlobalContext);
+  const [isErrorUser, setIsErrorUser] = useState(false)
+  const [errorName, setErrorName] = useState(null)
+  const [loadingStatus, setLoadingStatus] = useState(false);
+
   const localItemUser = localStorage.getItem('__user')
   const localItemRepo = localStorage.getItem('__repos')
   const getItem = (JSON.parse(localItemUser))
   const getRepo = (JSON.parse(localItemRepo))
+
   const QRCODE = user?.login || getItem?.login
 
-  const { request, data, error, loading } = useFetch()
 
+
+
+
+  const { request, data, error, setError, loading } = useFetch()
 
   async function fetchData() {
-
+    setLoadingStatus(true)
     let { response, json } = await request(`https://api.github.com/users/${userGit}`);
     if (response.status === 404) {
-      json = undefined
+      setIsErrorUser(true)
     } else {
       setUser(json)
       let userName = json
       setOldUsers((old) => [...old, userName])
       userName ? localStorage.setItem('__user', JSON.stringify(userName)) : null;
+      setResponseStatus(response)
+      setIsErrorUser(false)
     }
+    setTimeout(async () => {
+      setLoadingStatus(false)
+    }, 1000)
   }
 
   async function fetchRepo() {
@@ -55,28 +72,38 @@ const Homescreen = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setErrorName(inputRef.current.value)
+    if (data?.message === "Not Found") {
+      setUserGit(inputRef.current.value)
+      setIsNan(false)
+      setIsErrorUser(true)
+    } else {
+      setIsNan(true)
+      setIsErrorUser(false)
+      setTimeout(() => {
+        setLoadingStatus(false)
+      }, 1000)
+    }
     if (userGit === undefined) {
       return;
     }
     if (userGit <= 0) {
-
     } else {
-      setUserGit(e.target.value)
       fetchData()
       fetchRepo()
+      setUserGit(e.target.value)
     } setUserGit('')
   }
 
   function clearCache() {
-    localStorage.clear()
-    location.reload()
+    setLoadingStatus(true)
+    setTimeout(() => {
+      localStorage.clear()
+      location.reload()
+      setLoadingStatus(false)
+    }, 1000)
   }
 
-  function isLoading() {
-    if (oldUsers) {
-      <p>Loading</p>
-    }
-  }
 
   function selectUseRecente(userName) {
     selectUser(userName.replace(/ /g, ''))
@@ -84,28 +111,32 @@ const Homescreen = () => {
   }
 
   function clearState(i) {
-    // setOldUsers[arr]([''])
-    const arr = oldUsers.filter((item) => item.id !== i);
+    const arr = oldUsers.filter((item, idx) => idx !== i);
     setOldUsers(arr);
   }
 
   async function selectUser(name) {
-    let { response, json } = await request(`https://api.github.com/users/${name}`);
+    let { json } = await request(`https://api.github.com/users/${name}`);
     setUser(json)
-    let userName = json
-    // setOldUsers((old) => [...old, userName])
   }
 
   async function selectRepo(name) {
-    let { response, json } = await request(`https://api.github.com/users/${name}/repos`);
+    let { json } = await request(`https://api.github.com/users/${name}/repos`);
     setRepo(json)
   }
 
   useEffect(() => {
-
     if (data?.message === "Not Found") {
+      setUserGit(inputRef.current.value)
       setIsNan(false)
-    } else setIsNan(true)
+      setIsErrorUser(true)
+    } else {
+      setIsNan(true)
+      setIsErrorUser(false)
+      setTimeout(() => {
+        setLoadingStatus(false)
+      }, 1000)
+    }
 
     if (oldUsers[0] == [""]) {
       if (oldUsers[1]) {
@@ -116,48 +147,60 @@ const Homescreen = () => {
     } return
   }, [oldUsers, data])
 
+  const jsonFetch = `${data && (`{
+    "status": ${JSON.stringify(responseStatus.status)},
+    "url": ${JSON.stringify(responseStatus.url)},
+},`)}
+{
+  "login" : ${JSON.stringify(user.name || getItem?.name)},
+  "id": ${JSON.stringify(user.id || getItem?.id)},
+  "node_id": ${JSON.stringify(user.id || getItem?.node_id)},
+  "avatar_url": ${JSON.stringify(user.avatar_url || getItem?.avatar_url)},
+  "gravatar_id": ${JSON.stringify(user.gravatar_id || getItem?.gravatar_id)},
+  "url": ${JSON.stringify(user.url || getItem?.url)},
+  "html_url": ${JSON.stringify(user?.html_url || getItem?.html_url)},
+  "organizations_url": ${JSON.stringify(user?.organizations_url || getItem?.organizations_url)},
+  "repos_url": ${JSON.stringify(user?.repos_url || getItem?.repos_url)},
+  "type": ${JSON.stringify(user?.type || getItem?.type)},
+  "site_admin": ${JSON.stringify(user?.site_admin || getItem?.site_admin)},
+  "name": ${JSON.stringify(user?.name || getItem?.name)},
+  "company": ${JSON.stringify(user?.company || getItem?.company)},
+  "blog": ${JSON.stringify(user?.blog || getItem?.blog)},
+  "location": ${JSON.stringify(user?.location || getItem?.location)},
+  "email": ${JSON.stringify(user?.email || getItem?.email)},
+  "bio": ${JSON.stringify(user?.bio || getItem?.bio)},
+  "twitter_username": ${JSON.stringify(user?.twitter_username || getItem?.twitter_username)},
+  "public_repos": ${JSON.stringify(user?.public_repos || getItem?.public_repos)},
+  "public_gists": ${JSON.stringify(user?.public_gists || getItem?.public_gists)},
+  "followers": ${JSON.stringify(user?.followers || getItem?.followers)},
+  "following": ${JSON.stringify(user?.following || getItem?.following)},
+  "created_at": ${JSON.stringify(user?.created_at || getItem?.created_at)},
+  "updated_at": ${JSON.stringify(user?.updated_at || getItem?.updated_at)} "
+} `;
 
-  const jsonFetch = `{
-    "login" : ${JSON.stringify(user.name || getItem?.name)},
-    "id": ${JSON.stringify(user.id || getItem?.id)},
-    "node_id": ${JSON.stringify(user.id || getItem?.node_id)},
-    "avatar_url": ${JSON.stringify(user.avatar_url || getItem?.avatar_url)},
-    "gravatar_id": ${JSON.stringify(user.gravatar_id || getItem?.gravatar_id)},
-    "url": ${JSON.stringify(user.url || getItem?.url)},
-    "html_url": ${JSON.stringify(user?.html_url || getItem?.html_url)},
-    "organizations_url": ${JSON.stringify(user?.organizations_url || getItem?.organizations_url)},
-    "repos_url": ${JSON.stringify(user?.repos_url || getItem?.repos_url)},
-    "type": ${JSON.stringify(user?.type || getItem?.type)},
-    "site_admin": ${JSON.stringify(user?.site_admin || getItem?.site_admin)},
-    "name": ${JSON.stringify(user?.name || getItem?.name)},
-    "company": ${JSON.stringify(user?.company || getItem?.company)},
-    "blog": ${JSON.stringify(user?.blog || getItem?.blog)},
-    "location": ${JSON.stringify(user?.location || getItem?.location)},
-    "email": ${JSON.stringify(user?.email || getItem?.email)},
-    "bio": ${JSON.stringify(user?.bio || getItem?.bio)},
-    "twitter_username": ${JSON.stringify(user?.twitter_username || getItem?.twitter_username)},
-    "public_repos": ${JSON.stringify(user?.public_repos || getItem?.public_repos)},
-    "public_gists": ${JSON.stringify(user?.public_gists || getItem?.public_gists)},
-    "followers": ${JSON.stringify(user?.followers || getItem?.followers)},
-    "following": ${JSON.stringify(user?.following || getItem?.following)},
-    "created_at": ${JSON.stringify(user?.created_at || getItem?.created_at)},
-    "updated_at": ${JSON.stringify(user?.updated_at || getItem?.updated_at)}"
-  }`;
-
+  if (loadingStatus) {
+    <Spinner />
+  }
 
   return (
     <>
+      {loadingStatus ? <Spinner /> : ''}
       <S.Container>
-        <SearchUser onSubmit={handleSubmit} onSubmitSend={handleSubmit} />
+        <SearchUser
+          inputRef={inputRef}
+          onSubmit={handleSubmit}
+          onSubmitSend={handleSubmit}
+          userNotFound={isErrorUser}
+          userError={errorName}
+        />
         <S.RowGit >
-          {isLoading}
           {(data) && (
             <S.Card>
               <ListProjects
                 QRCodeUser={userGit}
                 isNan={isNan}
                 closeButton={false}
-                isLoading={loading}
+                isLoading={loadingStatus}
                 git={userGit}
                 repository={repo}
                 key={user?.id}
@@ -172,6 +215,7 @@ const Homescreen = () => {
                 isNan={isNan}
                 QRCodeUser={QRCODE}
                 jsonFetch={jsonFetch}
+                loading={loadingStatus}
               />
             </S.Card>
           )}
@@ -182,7 +226,7 @@ const Homescreen = () => {
                 isNan={isNan}
                 closeButton
                 clearCache={clearCache}
-                isLoading={loading}
+                isLoading={loadingStatus}
                 git={userGit}
                 repository={getRepo}
                 key={getItem?.id}
@@ -204,10 +248,9 @@ const Homescreen = () => {
       </S.Container>
       <S.RowRecents>
         {oldUsers.id != '' && (
-          (oldUsers.map((item) => (
+          (oldUsers.map((item, idx) => (
             <Recents
-
-              clearState={() => clearState(item.id)}
+              clearState={() => clearState(idx)}
               onClick={() => selectUseRecente(item.login)}
               isEmpty={isEmpty}
               avatar_url={item?.avatar_url}
@@ -221,47 +264,3 @@ const Homescreen = () => {
 }
 
 export default Homescreen;
-
-// function FetchListRepo() {
-//   fetch(`https://api.github.com/users/${userGit}/repos`)
-//     .then(response => response.json())
-//     .then(data => setRepo(data))
-//   localStorage.setItem('__repos', JSON.stringify(repo))
-// }
-
-// function fetchData() {
-//   fetch(`https://api.github.com/users/${userGit}`)
-//     .then(response => response.json())
-//     .then(data => setUser(data))
-//     .then(localStorage.setItem('__repos', JSON.stringify(data)))
-// }
-
-
-// async function fetchData() {
-//   let { response, json } = await request(`https://api.github.com/users/${userGit}`);
-//   setUser(json)
-//   const REQUEST = await localStorage.setItem('__user', JSON.stringify(user))
-
-// async function fetchData() {
-//   let { response, json } = await request(`https://api.github.com/users/${userGit}`);
-//   json ? localStorage.setItem('__user', JSON.stringify(json)) : null;
-// }
-// }
-{/* {oldUsers.id != '' && (
-          (oldUsers?.slice(1, 7).map((item) => (
-          // ((oldUsers).map((item) => (
-            <ListProjects 
-              isEmpty={isEmpty}
-              isLoading={loading}
-              git={userGit}
-              repository={repo}
-              key={item?.id}
-              avatar={item?.avatar_url}
-              name={item?.name}
-              bio={item?.bio}
-              follower={item?.followers}
-              public_repos={item?.followers}
-              html_url={item?.html_url}
-            />
-            )))
-        )} */}

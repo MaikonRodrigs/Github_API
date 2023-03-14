@@ -18,20 +18,34 @@ export const RowGit = styled.div`
   gap: 2rem;
 `;
 
-export const RowRecents = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  flex-direction: row;
-  gap: 2rem;
-`;
-
 export const Card = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   gap: 4rem;
+`;
+
+export const CardResults = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 4rem;
+  background-color: red;
+`;
+
+export const RowRecents = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1366px;
+  margin: 0 auto;
 `;
 
 export const ErrorScreen = styled.div`

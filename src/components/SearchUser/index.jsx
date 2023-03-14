@@ -1,16 +1,17 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { GlobalContext } from '../../hooks/useContext';
 
 import * as S from './styles';
 
 const SearchUser = ({
   onSubmit,
-  onSubmitSend
+  onSubmitSend,
+  userNotFound,
+  userError,
+  inputRef
 }) => {
-  const [valueInput, setValueInput] = useState();
   const { userGit, setUserGit } = useContext(GlobalContext);
-
-
+  const userErr = `${userError} User not found`
 
   function clearSearch() {
     const inputSearch = document.getElementById('search')
@@ -29,6 +30,7 @@ const SearchUser = ({
             <S.IconGitHub />
           </S.RowGitHub>
           <S.InputSearch
+            ref={inputRef}
             type="text"
             required
             id="search"
@@ -41,9 +43,13 @@ const SearchUser = ({
           <S.ButtonSend onClick={onSubmitSend}>
             <S.SearchIcon />
           </S.ButtonSend>
-          {userGit && (<S.ResetSearch onClick={clearSearch} />) }
-          
+          {userGit && (<S.ResetSearch onClick={clearSearch} />)}
         </S.Form>
+        {userNotFound && (
+          <S.ErrorUser>
+            {userErr}
+          </S.ErrorUser>
+        )}
       </S.Container>
     </>
   )

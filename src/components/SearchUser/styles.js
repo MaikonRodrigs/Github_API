@@ -102,3 +102,13 @@ export const RowGitHub = styled.div`
 export const ButtonSend = styled.div`
   cursor: pointer;
 `; 
+
+export const ErrorUser = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--error);
+  margin: 12px auto;
+  text-transform: uppercase;
+`; 
