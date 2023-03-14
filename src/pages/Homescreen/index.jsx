@@ -16,8 +16,8 @@ const Homescreen = () => {
   const [user, setUser] = useState(null);
   const [repo, setRepo] = useState(null);
   const [responseStatus, setResponseStatus] = useState(null);
-  const [oldUsers, setOldUsers] = useState([null]);
-  const [oldRepos, setOldRepos] = useState([null]);
+  const [oldUsers, setOldUsers] = useState([]);
+  const [oldRepos, setOldRepos] = useState([]);
   const [isEmpty, setIsEmpty] = useState(true)
   const [isNan, setIsNan] = useState(true)
   const [isErrorUser, setIsErrorUser] = useState(false)
@@ -142,8 +142,8 @@ const Homescreen = () => {
   }, [oldUsers, data])
 
   const jsonFetch = `${data && (`{
-    "status": ${JSON.stringify(responseStatus.status)},
-    "url": ${JSON.stringify(responseStatus.url)},
+    "status": ${JSON.stringify(responseStatus?.status)},
+    "url": ${JSON.stringify(responseStatus?.url)},
 },`)}
 {
   "login" : ${JSON.stringify(user?.name || getItem?.name)},
